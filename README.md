@@ -24,7 +24,7 @@ This ensures that the spatial features are not lost due to down sampling by the 
 
 ## File Descriptions
 ### data
-This folder contains three subfolders: normal, benign and malignant. Each folder contains ultrasound images belonging to each class and their corresponding masks
+This folder contains three subfolders: normal, benign and malignant. Each folder contains ultrasound images belonging to each class and their corresponding masks. **This folder also contains 10 ultrasound images for predict.py to make predictions**
 ### config.py
 This file contains importand variables such as 
 - batchsize
@@ -34,7 +34,7 @@ This file contains importand variables such as
 - loss
 ### dataset.py
 The dataset.py file contains two classes - BreastCancerDataset and CustomDataLoader.
-- The `BreastCancerDataset` takes in the path to the folder with the images as the argument. The folder should contain three subfolders: normal, benign and malignant. These subfolders should contain the images and corresponding masks. The format is similar to what is found in the /data folder.
+- The `BreastCancerDataset` takes in the path to the folder with the images as the argument. The folder should contain three subfolders: normal, benign and malignant. These subfolders should contain the images and corresponding masks. The format is similar to what is found in the `data` folder.
 - The `CustomDataLoader` takes in the dataset, batchsize and shuffle(boolean) as the input. It handles batching and optional shuffling of the dataset. It manually iterates through the dataset, fetching batches of images and corresponding masks, and stacks them into tensors for training and evaluation.   
 ### model.py
 This file defines the U-Net architecture used for breast cancer segmentation. The model follows an encoder–decoder structure:
@@ -48,7 +48,7 @@ The model is implemented in PyTorch and can handle input images with 3 channels 
 ### train.py
 This file defines the training loop for the segmentation model. It moves the model to the specified device, iteratively optimizes the network using the given loss function and optimizer, and tracks the training loss across epochs. 
 ### predict.py
-This file contains the function plot segmented images which takes a list of image paths and outputs the segmented masks by the model alongside the given images. The file fetch model from `model.py` and weights from `checkpoints` folder for evaluation. **No matter the number of image given as input, the function will only provide predictions for the first 5 images for the sake of interpretability**
+This file contains the function `plot_segmented_images` which takes the directory which the images are stored as the input and outputs the segmented masks by the model alongside the given images. By default, it takes the `data` folder in this repository as the input. The file fetch model from `model.py` and weights from `checkpoints` folder for evaluation. **No matter the number of image given as input, the function will only provide predictions for the first 5 images for the sake of interpretability**. 
 **The function is equiped to avoid files with `_mask` in it avoid making predictions for mask images. So you can input image paths in a whole folder without separating mask files**
 ## References
 
